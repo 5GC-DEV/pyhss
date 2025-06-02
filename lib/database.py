@@ -1592,6 +1592,11 @@ class Database:
             rand, autn, xres, ck, ik = S6a_crypt.generate_maa_vector(key_data['ki'], key_data['opc'], key_data['amf'], key_data['sqn'], kwargs['plmn'])
             self.logTool.log(service='Database', level='debug', message="RAND is: " + str(rand), redisClient=self.redisMessaging)
             self.logTool.log(service='Database', level='debug', message="AUTN is: " + str(autn), redisClient=self.redisMessaging)
+            self.logTool.log(service='Database', level='debug', message="XRES is: " + str(xres), redisClient=self.redisMessaging)
+            self.logTool.log(service='Database', level='debug', message="CK is: " + str(ck), redisClient=self.redisMessaging)
+            self.logTool.log(service='Database', level='debug', message="IK is: " + str(ik), redisClient=self.redisMessaging)
+            self.logTool.log(service='Database', level='debug', message="Current SQN: " + str(key_data['sqn']), redisClient=self.redisMessaging)
+            self.logTool.log(service='Database', level='debug', message="Updated SQN: " + str(key_data['sqn'] + 100), redisClient=self.redisMessaging)
             vector_dict['SIP_Authenticate'] = rand + autn
             vector_dict['xres'] = xres
             vector_dict['ck'] = ck
