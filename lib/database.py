@@ -1587,7 +1587,7 @@ class Database:
             self.logTool.log(service='Database', level='debug', message="SQN from resync: " + str(sqn) + " SQN in DB is "  + str(key_data['sqn']) + "(Difference of " + str(int(sqn) - int(key_data['sqn'])) + ")", redisClient=self.redisMessaging)
             self.Update_AuC(auc_id, sqn=sqn+1)
             key_data = self.GetObj(AUC, auc_id)
-            self.logTool.log(service='Database', level='debug', message="Current SQN after resync:" +str(key_data['sqn']) )
+            self.logTool.log(service='Database', level='debug', message="Current SQN after resync:" +str(key_data['sqn']) , redisClient=self.redisMessaging)
             # self.Update_AuC(auc_id, sqn=sqn+100)
             return
         
