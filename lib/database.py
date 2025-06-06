@@ -1584,13 +1584,14 @@ class Database:
             self.logTool.log(service='Database', level='debug', message="Resync SQN", redisClient=self.redisMessaging)
             rand = kwargs['rand']       
             sqn, mac_s = S6a_crypt.generate_resync_s6a(key_data['ki'], key_data['opc'], key_data['amf'], kwargs['auts'], rand)
-            self.logTool.log(service='Database', level='debug', message="SQN from resync: " + str(sqn) + " SQN in DB is "  + str(key_data['sqn']) + "(Difference of " + str(int(sqn) - int(key_data['sqn'])) + ")", redisClient=self.redisMessaging)
-            print("Value of sqn right before Update_AuC:", sqn)
+            self.logTool.log(service='Database', level='debug', message="SQN from Resync: " + str(sqn) + " SQN in DB is "  + str(key_data['sqn']) + "(Difference of " + str(int(sqn) - int(key_data['sqn'])) + ")", redisClient=self.redisMessaging)
+            self.logTool.log(service='Database', level='debug', message="before calling Update_Auc: " + str(sqn), redisClient=self.redisMessaging)
             if key_data['sqn'] <= sqn:
                 new_sqn = sqn + 1
             else:
                 new_sqn = key_data['sqn'] + 1
             self.Update_AuC(auc_id, sqn=new_sqn)
+            self.logTool.log(service='Database', level='debug', message="SQN from resync testing : " + str(sqn) + " SQN in DB is "  + str(key_data['sqn']) + "(Difference of " + str(int(sqn) - int(key_data['sqn'])) + ")", redisClient=self.redisMessaging)
             self.logTool.log(service='Database', level='debug', message="Current New SQN after resync and increment:" +str(new_sqn) , redisClient=self.redisMessaging)
             # self.Update_AuC(auc_id, sqn=sqn+1)
             # key_data = self.GetObj(AUC, auc_id)
